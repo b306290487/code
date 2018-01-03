@@ -1,0 +1,223 @@
+//------------------->>>常用API
+cc.director.getScene()
+cc.director.runScene() //运行指定场景。
+cc.director.loadScene() //通过场景名称进行加载场景。
+cc.director.loadScene("MyScene", onSceneLaunched); //加载场景时，可以附加一个参数用来指定场景加载后的回调函数：
+cc.director.preloadScene() //预加载场景，
+item.getComponent('ItemTemplate').init()
+getChildByName
+this.node.active = false; //关闭/激活节点
+
+require + 文件名(不含路径) 来获取到对方 exports 的对象。
+module.exports = {
+    backNode: null,
+};
+window.Global = {  //全局
+    backNode: null,
+};
+
+cc.game.addPersistRootNode(myNode); --常驻节点
+cc.game.removePersistRootNode(myNode);  需要注意的是该 API 并不会立即销毁指定节点，只是将节点还原为可在场景切换时销毁的节点。
+
+//延迟触发
+setTimeout(function () {
+    this.target.destroy();
+  }.bind(this), 5000);
+
+cc.Node.cascadeOpacity //Boolean 节点的不透明度值是否影响其子节点，默认值为 true。
+cc.Scene.setCascadeOpacityEnabled //启用或禁用级连不透明度，如果级连启用，子节点的不透明度将是父不透明度乘上它自己的不透明度。 isCascadeOpacityEnabled 返回节点的不透明度值是否影响其子节点。
+
+var url = cc.url.raw("textures/myTexture.png");
+var texture = cc.textureCache.addImage(realUrl);
+this.getComponent(cc.Sprite).spriteFrame.setTexture(texture);
+
+this.sprite=this.getComponent(cc.Sprite);
+sprite.spriteFrame.setTexture(cc.url.raw('ninganyi.jpg'));
+
+// 加载 Prefab
+cc.loader.loadRes("test assets/prefab", function (err, prefab) {
+    var newNode = cc.instantiate(prefab);
+    cc.director.getScene().addChild(newNode);
+});
+
+// 加载 SpriteFrame  参数2 指定想要的类型
+var self = this;
+cc.loader.loadRes("test assets/image", cc.SpriteFrame, function (err, spriteFrame) {
+    self.node.getComponent(cc.Sprite).spriteFrame = spriteFrame;
+});
+
+//资源释放
+cc.loader.releaseRes("test assets/image", cc.SpriteFrame);
+cc.loader.releaseRes("test assets/anim");
+
+cc.loader.load //远程服务器加载
+cc.loader.releaseRes //本地目录加载
+
+// 加载 test assets 目录下所有资源
+cc.loader.loadResDir("test assets", function (err, assets) {
+    // ...
+});
+
+// 加载 sheep.plist 图集中的所有 SpriteFrame
+cc.loader.loadResDir("test assets/sheep", cc.SpriteFrame, function (err, assets) {
+    // assets 是一个 SpriteFrame 数组，已经包含了图集中的所有 SpriteFrame。
+    // 而 loadRes('test assets/sheep', cc.SpriteAtlas, function (err, atlas) {...}) 获得的则是整个 SpriteAtlas 对象。
+});
+
+
+
+//---------------------->>> 获取组件的几种形式:
+//1. 通过属性检查器被赋值的label组件，直接拿到得到实例
+//2. 通过属性检查器被赋值的label组件所在的node节点，然后通过getComponent获取
+// this.label.string = this.text;
+
+//3. 获取当前this(node)节点上的label组件
+// var _label = this.getComponent(cc.Label);
+
+//4. 先获取目标组件所在的节点，然后通过getComponent获取目标组件
+var _label = cc.find("Canvas/label").getComponent(cc.Label);
+
+//5.也可以如下形式【注意此种方式，目前有BUG，无法正常使用 (0.7.1) 】
+// var _label = cc.find("Canvas/label<cc.Label>");
+
+
+//------------------>>>全局变量的访问
+/* 任意脚本中定义如下：【注意不要有var哦】
+
+ t_global = {
+ tw:100,
+ th:200
+ };
+
+ */
+t_global.th = 2000;
+console.log(t_global.th);
+
+
+//--------------------->>>模块之间的访问
+/*任意脚本中定义如下 【注意关键字是module.exports】
+
+ module.exports= {
+ tme_pa1:"100",
+ tme_pa2:333221
+ };
+
+ */
+//-------------------------->>>用 require + 文件名(不含路径) 来获取到其他 模块 的对象
+var tModuleData = require("testJs");
+tModuleData.tme_pa2 = 991;
+
+
+//-------------------------->>>在当前节点下添加一个组件
+var mySprite = new cc.Node().addComponent(cc.Sprite);
+mySprite.spriteFrame = this.t_sprite;
+mySprite.node.parent = this.node;
+mySprite.node.setPosition(300,200);
+
+//------------------------------>>>复制节点/或者复制 prefab
+//复制节点
+var lLabel = cc.instantiate(this.label);
+lLabel.node.parent = this.node;
+lLabel.node.setPosition(-200,0);
+//复制prefab
+var tPrefab = cc.instantiate(this.t_prefab);
+tPrefab.parent = this.node;
+tPrefab.setPosition(-210,100);
+
+//--------------------------------------->>>  销毁节点(销毁节点并不会立刻发生，而是在当前 帧逻辑更新结束后，统一执行)
+if (cc.isValid(this.label.node) ) {
+    console.log("有效存在，进行摧毁");
+    this.label.destroy();
+}else{
+    console.log("已摧毁");
+}
+
+//--->>> 事件监听 on 4种形式
+//枚举类型注册
+var tFun =function (event){
+    console.log("touchend event:"+event.touch.getLocation().x +"|"+event.touch.getLocation().y);
+};
+this.node.on(cc.Node.EventType.TOUCH_END,tFun,this);
+
+//事件名注册
+this.node.on("touchend",function (event){
+  console.log("touchend event");
+});
+
+this.node.on("touchend",function (event){   //click,touchend,touchstart,touchmove,touchcancel
+  console.log("touchend event");  
+},this);
+
+//--->>> 一次性的事件监听 once
+this.node.once("touchend",function (event){
+  console.log("touchend event");
+});
+
+
+//-------------------------->>> 关闭监听
+this.node.off("touchend",tFun,this);
+
+
+//----------------------------->>> 发射事件（事件手动触发)
+this.node.on("tEmitFun",function (event){
+    console.log("tEmitFun event:"+event.detail.himi+"|"+event.detail.say);
+
+    //---------------------->>> 事件中断,如下函数阻止事件向当前父级进行事件传递
+    // event.stopPropagation();
+});
+this.node.emit("tEmitFun",{himi:27,say:"hello,cc!"});
+
+
+//----------------------------->>> 动作，类似c2dx api 基本无变化
+var mTo = cc.moveBy(1,-100, -200);
+var mAction = cc.repeatForever(cc.sequence(cc.moveBy(1,-100, -200),mTo.reverse(),cc.delayTime(0.5),cc.callFunc(function(action,data){
+    console.log("action callback:"+data.himi);
+},this,{tx:100,himi:"i'm action callback and bring data"})));
+mySprite.node.runAction(mAction);
+//暂停动作
+mySprite.node.stopAction(mAction);
+
+
+//--------------------------->>> 计时器 (component)schedule (cc.Node 不包含计时器相关 API)
+//参数： call funtion/interval/repeat times/delay time
+//不延迟，永久重复
+this.schedule(function(){
+    console.log("schedule log...");
+},1);
+
+//不延迟，有重复次数限定
+// this.schedule(function(){
+//     console.log("schedule log...");
+// },1,2);
+
+//重复2次，重复间隔为1秒，延迟1秒进行
+// this.schedule(function(){
+//     console.log("schedule log...");
+// },1,2,1);
+
+//一次性的计时器
+var mySch =function(){ console.log("schedule Once log..."); }
+this.scheduleOnce(mySch);
+
+//取消定时器
+this.unschedule(mySch);
+
+
+//----------------------------->>> url raw资源获取
+var mSf = new cc.Node().addComponent(cc.Sprite);
+mSf.spriteFrame = this.t_sprite;
+mSf.spriteFrame.setTexture(this.t_url);
+mSf.node.setPosition(400,0);
+mSf.node.parent = this.node;
+mSf.node.setScale(0.5);
+
+//获得 Raw Asset 的 url
+var mUrl = cc.textureCache.addImage(cc.url.raw("himi.png"));
+console.log("raw asset url:"+mUrl);
+
+
+//----------------------------------------------------------------------------
+//-------------------------------cc.Layout-------------------------------------
+//----------------------------------------------------------------------------
+cc.Layout.type = cc.Layout.Type.VERTICAL //GRID NONE HORIZONTAL
+updateLayout //立即执行更新布局
