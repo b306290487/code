@@ -1,4 +1,3 @@
-CommonCfg.commonCfgList[923004].Effect[1]
 removeFromParent
 if 
 	setCascadeColorEnabled(true) --透明值 共享
