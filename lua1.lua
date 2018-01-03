@@ -88,13 +88,13 @@ if
 	var rectB = cc.rect(4,9,5,10);
 	var r = cc.rectIntersectsRect(rectA, rectB);
 	if(!r) throw "Fail rectIntersectsRect 1”;
-	2、cc.rectContainsPoint(rect,point) 判断某个矩形中是否包含某个点，若包含，返回true
-	3、cc.pointEqualToPoint(point1,point2) 判断两个点是否相等，相等返回true
-	4、cc.rectEqualToRect(rect1,rect2)判断两个矩形是否相等
-	5、cc._rectEqualToZero(rect)判断该矩形是否为0矩阵
-	6、cc.rectOverlapsRect(rectA,rectB)判断两个矩形是否部分重叠
-	7、cc.rectIntersection(rectA,rectB)返回两个矩形重叠部分
-	8、cc.rectUnion(rectA,rectB)返回包含这两个矩形的最小矩形
+	cc.rectContainsPoint(rect,point) 判断某个矩形中是否包含某个点，若包含，返回true
+	cc.pointEqualToPoint(point1,point2) 判断两个点是否相等，相等返回true
+	cc.rectEqualToRect(rect1,rect2)判断两个矩形是否相等
+	cc._rectEqualToZero(rect)判断该矩形是否为0矩阵
+	cc.rectOverlapsRect(rectA,rectB)判断两个矩形是否部分重叠
+	cc.rectIntersection(rectA,rectB)返回两个矩形重叠部分
+	cc.rectUnion(rectA,rectB)返回包含这两个矩形的最小矩形
 
 --***背景音乐**
 
