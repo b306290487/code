@@ -1,0 +1,210 @@
+id是唯一的  class可重复  id是先找结构内容再加载样式  class则相反
+颜色不要使用代码的形式比如#ffee00 在不同浏览器 对代码颜色解析不同
+
+background-image:linear-gradient(to bottom,#DAAAAA,#E87373 80%,#DAAAAA);
+     height: 30px;
+/*通配符*/
+*{
+    padding: 0px;
+    margin: 0px;
+    clip:rect(0px,72px,72px,0px);  截图top width height left
+}
+
+/*高级语法*/
+h1,a,h2{  color: blue;font-size: 50px;  }
+body{  color: blueviolet;  }
+
+/*派生选择器 可以不写子类直接找孙类*/
+li strong{  color: red;  }
+li strong i{  color: red;  }
+
+/*子元素选择器  只能通过子类一层一层找*/
+li>strong{  color: red;  }
+li>strong>i{  color: red;  }
+
+/*相邻选择器 需相同父类 从第二个开始有效果*/
+li+li{  color: red;  }
+
+/*id选择器*/
+#pid{  color: red;  }
+#pid a{  color: red;  }
+
+/*类选择器*/
+.pclass{  color: red;  }
+.pclass a{  color: red;  }
+div.ul1  /*点出类*/
+.div1 .div2 .div3{  }
+
+/*引入本地字体*/
+@font-face {
+    font-family: myfont;
+    src: url(path);
+}
+
+/*css连接的四种状态*/
+a:link{  color: #FFFF00;  text-decoration: none; background-color: aqua; } /*普通的、未被访问的链接  text-decoration = none 不需要下划线 background-color 背景颜色*/
+a:visited{  color: #00FF00;  } /*用户已访问的链接*/
+a:hover{  color: #0000FF;  } /*鼠标指针位于链接的上方*/
+a:active{  color: #0000FF;  } /*链接被点击的时刻*/
+
+/*列表*/
+ui li{
+    list-style-type: circle;  /*设置列表风格*/
+    list-style-iamge: url("path.png");  /*使用图片风格*/
+    list-style-position: inside;  /*位子更外面*/
+    list-style-position: outside; /*位子偏里面*/
+    display: inline; /*列表 横排*/
+}
+
+/*表格*/
+#tableid,tr,th,td{
+    border: 1px solid red;  /*边框大小 边框颜色*/
+    text-align: center;  /*表格内容居中*/
+    background-color: aqua; /*表格背景*/
+    padding: 5px;
+}
+#tableid{
+    width: 400px;
+    height: 400px;
+    border-collapse: collapse;  /*合并外边框*/
+}
+
+p{
+    
+    background-color: darkgray;
+    width: 150px;
+    text-wrap: normal;
+    padding: 10px; /*间距*/
+    padding-left: 20px;
+    color: red;
+    text-align: center; /*对其方式*/
+    text-indent: 2em; /*首行缩进*/
+    text-transform: capitalize; /*字母规范*/
+    text-shadow: 5px 5px 1px #FFFF00; /*阴影 左 右 清晰度 颜色 */
+    direction: inherit; /*文本方向*/
+    unicode-bidi: normal; /*设置文本方向*/
+    white-space: inherit; /*元素空白处理方式*/
+    word-spacing: 10px;  /*字间距*/
+    text-decoration: blink;  /*文本添加修饰 a标签去下划线none*/
+    border-style: double;  /*边框样式*/
+    border-top-style: double;  /*单边框样式*/
+    border-width: 2px; /*边框宽度*/
+    border-top-width: 2px;  /*单边框宽度*/
+    border-color: red; /*边框颜色*/
+    border-top-color: red;  /*单边框颜色*/
+    border-radius: 10px; /*圆角边框*/
+    border-image: url("");/*边框图片*/
+}
+body{
+    background-image: url("bg.png");
+    background-repeat: no-repeat;  /*背景图片是否重复*/
+    background-position: 100px 10%; /*可以设置两个属性  */
+    background-attachment: fixed; /*背景图片是否 随页面滚动*/
+    background-size: auto ; /*规定背景图片尺寸*/
+    background-origin: content-box ; /*规定背景图片定位区域*/
+    background-clip: content-box ; /*规定背景图片绘制区域*/
+    margin: 0px;/*外边距*/
+}
+h1{
+    font-family: cursive; /*设置字体库*/
+    font-size: inherit; /*设置字体的尺寸*/
+    font-stype: cursive; /*设置字体风格*/
+    font-variant: normal; /*以小型大写字体或正常字体显示文本*/
+    font-weight: 100px; /*设置字体粗细*/
+}
+.divid{
+    box-shadow: 10px 10px 5px #FF00FF; /*阴影 左 右 清晰度 颜色 */
+    margin: inherit;/*外边距*/
+    margin-top: inherit;/*外 上边距*/
+    float: left; /*大小根据内容浮动 left 靠左*/
+}
+
+/*轮廓*/
+p{
+    outline-width: 20px; /*粗细*/
+    outline-style: groove; /*样式*/
+    outline-color: red;  /*颜色*/
+}
+
+/*动画*/
+.div2{
+    /*移动*/
+    transform: translate(100px,100px);
+    -webkit-transform: translate(100px,100px); /*支持浏览器有 safari chrome*/
+    -ms-transform: translate(100px,100px); /*支持浏览器有 IE*/
+    -o-transform: translate(100px,100px); /*支持浏览器有 opera*/
+    -moz-transform: translate(100px,100px); /*支持浏览器有 firefox*/
+    /*旋转*/
+    transform: rotate(180deg);
+    /*缩放 参数1 宽度，参数3 高度*/
+    transform: scale(1,2);
+    /*倾斜*/
+    transform: skew(50deg,50deg);
+    /*矩阵*/
+    transform: matrix(??);
+    /*3d旋转*/
+    transform: rotateX(100deg);
+    transform: rotateY(100deg);
+
+    /*单个参数设置*/
+    transition-property: width; /*动画名称属性*/
+    transition-duration: 2s; /*动画效果花费时间*/
+    transition-timing-function: initial; /*动画效果的时间曲线*/
+    transition-delay: 2s; /*延时执行*/
+
+    /*多个参数设置 加多个动作 一起写*/
+    -webkit-transition: width 2s,height 2s,-webkit-tranform,2s;
+    -moz-transition: width 2s,height 2s,-moz-tranform,2s;
+    -ms-transition: width 2s,height 2s,-ms-tranform,2s;
+    -o-transition: width 2s,height 2s,-o-tranform,2s;
+    transition: width 2s,height 2s,tranform,2s;
+
+    tranform: rotate(360deg);
+    -webkit-tranform: rotate(360deg);
+
+
+}
+
+/*动画2*/
+div{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+    position: relative;
+    animation:anim 5s infinite alternate;/* infinite alternate 正向反向 无限循环*/
+    -webkit-animation: anim 5s infinite alternate;
+}
+
+@keyframes anim{
+    0%{background: red;  left: 0px;  top:0px;}
+    25%{background: blue;  left: 200px;  top:0px;}
+    50%{background: #ccffcc;  left: 200px;  top:200px;}
+    75%{background: #00ffff;  left: 0px;  top:200px;}
+    100%{background: red;  left: 0px;  top:0px;}
+}
+
+@@-webkit-keyframes  anim{
+     0%{background: red;  left: 0px;  top:0px;}
+     25%{background: blue;  left: 200px;  top:0px;}
+     50%{background: #ccffcc;  left: 200px;  top:200px;}
+     75%{background: #00ffff;  left: 0px;  top:200px;}
+     100%{background: red;  left: 0px;  top:0px;}
+ }
+
+/*分列*/
+div{
+    /*分3列*/
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+
+    /*间距*/
+    -webkit-column-gap: 30px;
+    -moz-column-gap: 30px;
+    column-gap: 30px;
+
+    /*分割线大小 样式 及颜色*/
+    column-rule: 5px outset #ff000;
+    -webkit-column-rule: 5px outset #ff000;
+    -moz-column-rule: 5px outset #ff000;
+}
