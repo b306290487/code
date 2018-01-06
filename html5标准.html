@@ -1,0 +1,718 @@
+<!--
+        手机屏幕适配必要代码
+        name="viewport" 屏幕设定
+        maximum-scale=1.0,minimum-scale=1.0 锁定内容比例 不允许缩放
+        user-scalable=0,width=device-width 设定内容和设备的屏幕等宽等高
+    -->
+<ul>
+    list-style-type: none;   去掉点
+</ul>
+<li>
+    float: left;
+    font-size: 20px;
+    height: 50px;
+    line-height: 55px;
+    letter-spacing: 5px;    文字间距
+    margin-right: 10px;
+    width: 100px;
+    text-align: center;
+</li>
+<div>
+    background: url(../img/bj.png) repeat-x;         背景使用图片  且平铺
+    *position:fixed;             可设置固定属性
+</div>
+
+<a>
+    text-decoration: none;      去掉下划线
+</a>
+
+<h1>
+    float: left;
+    font:bold 40px 隶书;   粗体 大小 字体
+    color: #fff;
+    margin-left: 50px;
+    height: 50px;
+    line-height: 55px;  行高 用来设置文字在行中的 位子
+</h1>
+
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,
+    width=device-width,initial-scale=1.0">
+
+<hr>  分割线   <br/>  换行
+../../找上级文件夹
+<meta http-equiv="refresh" content="3;http://www.baidu.con">  --3秒后跳到百度
+
+<Link rel="stylesheet" type="text/css" href="mystyle.css"> --外接css样式 <! link 引入外部资源 rel 引入什么  type 具体类型 href 地址>
+ <style type="text/css"> --内部样式
+     p{
+         color: aqua;;
+     }
+ </style>
+--标签样式
+<div style="background: blue;width: 400px;height: 600px;"></div>
+
+ <p><h1 align="center">对齐方式</h1></p>
+
+ <!-- 快 -->
+ <a></a> 超链接标签 href 地址 target 跳转方式 style内敛样式
+        target _self 默认覆盖打开 _blank 新页面打开 _parent 在父节点打开页面  _top 在最顶层打开页面
+        style color颜色  --style="color: brown"
+
+        -----文档内跳转
+        <a name="tips">你好</a>
+        <br/> <br/> <br/> <br/>
+        <a href="#tips">跳到你好</a>
+
+        ----图片超链接
+        <a href="https://www.baidu.com">
+            <img src="11.png" width="200px" height="200px" alt="logo">  alt图片读取失败后 显示的文字
+        </a>
+
+<iframe></iframe> 内敛框架 src 引用 frameborder 边大小 width height
+
+<input type="" value="追加数据" onclick="saveStorage('memo')">
+    type button 按钮 submit 提交
+
+<textarea id="memo" cols="60" rows="10"></textarea><br/> 留言本
+
+各个适应浏览器  indexedDB 连接 更新
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        window.indexedDB = window.indexedDB || window.webkitIndexedDB || window.mozIndexedDB || window.msIndexedDB;
+        window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction;
+        window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+        window.IDBCursor = window.IDBCursor || window.webkitIDBCursor || window.msIDBCursor;
+        function connectDatabase(){
+            var dbName = "indexedDBgtest";
+            var dbVersion = 1;
+            var idb;
+            var dbConnect = indexedDB.open(dbName,dbVersion);
+            dbConnect.onsuccess = function(e){
+                idb = e.target.result;
+                alert("数据库连接成功");
+            }
+            dbConnect.onerror = function(){
+                alert("连接数据库失败");
+            }
+        }
+        function VersionUpDate(){
+            var dbName = "indexDBgtest";
+            var dbVersion = 3;
+            var idb;
+            var dbConnect = indexedDB.open(dbName,dbVersion);
+            dbConnect.onupgradeneeded = function(e){
+                idb = e.target.result;
+                var tx = e.target.transaction;
+                var oldVersion = e.oldVersion;
+                var newVersion = e.newVersion;
+                alert("数据库更新成功"+oldVersion+"---"+newVersion);
+            }
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="连接数据库" onclick="connectDatabase()">
+<input type="button" value="数据库中心" onclick="VersionUpDate()">
+</body>
+</html>
+
+表单与PHP交互
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>表单与PHP交互</title>
+</head>
+<body>
+<form action="http://localhost/MyService/Service.php" method="post"> <!--get会显示在地址上 可以资源定位 post不显示在地址上 不可以资源定位-->
+    用户名：<input type="text" name="name">
+    密码：<input type="password" name="password">
+    <br/>
+    <input type="submit" value="提交">
+</form>
+</body>
+</html>
+echo "用户名：".$_POST['name']."<br>密码：".$_POST['password']; --php接收代码
+
+表格
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>表格</title>
+</head>
+<body>
+<table border="1">
+    <caption>重要标杆</caption>
+    <tr valign="top"> <-- valign 对其方式 -->
+        <th>学表1</th>
+        <th>学表2</th>
+        <th>学表3</th>
+    </tr>
+    <tr>
+        <td>单元格1</td>
+        <td>单元格2</td>
+        <td>单元格3</td>
+    </tr>
+    <tr>
+        <td>单元格1</td>
+        <td>单元格2</td>
+        <td>单元格3</td>
+    </tr>
+</table>
+<img src="table.png" alt="表格属性">
+<br/>
+<table border="1">
+    <tr>
+        <td>表格11</td>
+        <td>表格12</td>
+    </tr>
+    <tr>
+        <td>
+            <ul>
+                <li>苹果</li>
+                <li>菠萝</li>
+                <li>香蕉</li>
+            </ul>
+        </td>
+        <td>我想吃了</td>
+    </tr>
+</table>
+ul定义表格内的列表  li列表的项
+<br/><br/><br/><br/><br/><br/>
+
+
+
+
+
+<table border="1" cellpadding="10" background="11.png">
+    <tr>
+        <th>学表1</th>
+        <th>学表2</th>
+        <th>学表3</th>
+    </tr>
+    <tr>
+        <td>单元格1</td>
+        <td>单元格2</td>
+        <td>单元格3</td>
+    </tr>
+</table>
+<br/>
+<table border="1" cellspacing="10" bgcolor="#a52a2a">
+    <tr>
+        <td>单元格1</td>
+        <td>单元格2</td>
+        <td>单元格3</td>
+    </tr>
+    <tr>
+        <td>单元格1</td>
+        <td>单元格2</td>
+        <td>单元格3</td>
+    </tr>
+</table>
+</body>
+</html>
+
+块 span
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <Link rel="stylesheet" type="text/css" href="mystyle.css">
+    <style type="text/css">
+        span{
+            color: cornflowerblue;
+        }
+    </style>
+</head>
+<body>
+<img src="kuai.png"  alt="logo">
+<!-- 快元素 会换行-->
+<p>大家好@</p>
+<h1>大家好@</h1>
+<!-- 快内敛元素 不会换行-->
+<a>大家好@</a>
+<b>大家好@</b>
+<div id="divid">
+    <p>大家好@</p>
+    <a>点击我@</a>
+</div>
+<div id="divspan">
+    <p><span>这是一个测试效果</span>span是一个什么样子</p>
+</div>
+</body>
+</html>
+
+sessionStorage localStorage 引用js 及数据存储
+<html>
+    //function saveStorage(id){
+    //    var target = document.getElementById(id);
+    //    var str = target.value;
+    //    // 保持数据的方法 key value
+    //     sessionStorage.setItem("message",str)
+    //}
+    //
+    //function loadStorage(id){
+    //    var target = document.getElementById(id);
+    //    // 读取数据
+    //    var msg =  sessionStorage.getItem("message");
+    //    target.innerHTML = msg;
+    //}
+
+    function saveStorage(id){
+    var target = document.getElementById(id);
+    var str = target.value;
+    // 保持数据的方法 key value
+    localStorage.setItem("message",str)
+    }
+
+    function loadStorage(id){
+    var target = document.getElementById(id);
+    // 读取数据
+    var msg =  localStorage.getItem("message");
+    target.innerHTML = msg;
+    }
+</html> js
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="appWab1.js"> document.write("这里可以写JS语句，记得语句结束加分号");</script>
+</head>
+<body>
+
+<p id="msg"></p>
+<input type="text" id="input">
+<input type="button" value="保持数据" onclick="saveStorage('input')">
+<input type="button" value="读取数据" onclick="loadStorage('msg')">
+<br />
+<img src="webStorage.png" alt="logo">
+</body>
+</html>
+
+数据保存  追加 清除
+<html>
+    function saveStorage(id){
+    var data = document.getElementById(id).value;
+    var time = new Date().getTime();
+    localStorage.setItem(time,data);
+    alert("数据已储存")
+    loadStorage('msg');
+    }
+
+    function loadStorage(id){
+    var result = "<table border = '1'>";
+        for(var i = 0; i<localStorage.length;i++){
+        var key = localStorage.key(i);
+        var value =  localStorage.getItem(key);
+        var date = new Date();
+        date.setTime(key);
+        result += "<tr><td>"+value+"</td><td>"+date+"</td></tr>";
+        }
+        result += "</table>";
+    var target = document.getElementById(id);
+    target.innerHTML = result;
+    }
+
+    function clearStorage(){
+    localStorage.clear()
+    alert("数据已经删除");
+    loadStorage('msg');
+    }
+</html> js
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="appWab2.js"></script>
+</head>
+<body>
+<p id="msg"></p>
+<textarea id="memo" cols="60" rows="10"></textarea><br/>
+<input type="button" value="追加数据" onclick="saveStorage('memo')">
+<input type="button" value="删除数据" onclick="clearStorage()">
+<img src="webStorage.png" alt="logo">
+</body>
+</html>
+
+数据 检索 搜索
+<html>
+    function saveStorage(){
+    var data = new Object;
+    data.name = document.getElementById("name").value;
+    data.email = document.getElementById("email").value;
+    data.tel = document.getElementById("tel").value;
+    data.memo = document.getElementById("memo").value;
+    var str = JSON.stringify(data);
+    localStorage.setItem(data.name,str);
+    alert("数据已经保持")
+    }
+
+    function findStorage(id){
+    var find = document.getElementById('find').value;
+    var str = localStorage.getItem(find);
+    var data = JSON.parse(str);
+    var result = "姓名："+data.name+"<br>";
+    result += "邮箱："+data.email+"<br>";
+    result += "电话："+data.tel+"<br>";
+    result += "备注："+data.memo+"<br>";
+    var target = document.getElementById(id);
+    target.innerHTML = result;
+    }
+</html>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="appWeb3.js"></script>
+</head>
+<body>
+<table>
+    <tr>
+        <td>姓名：</td>
+        <td><input type="text" id="name"></td>
+    </tr>
+    <tr>
+        <td>Email：</td>
+        <td><input type="text" id="email"></td>
+    </tr>
+    <tr>
+        <td>电话号码：</td>
+        <td><input type="text" id="tel"></td>
+    </tr>
+    <tr>
+        <td>备注：</td>
+        <td><input type="text" id="memo"></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="button" value="保持" onclick="saveStorage()"></td>
+    </tr>
+</table>
+<hr>
+<p>
+    检索：
+    <input type="text" id="find">
+    <input type="button" value="检索" onclick="findStorage('msg')">
+</p>
+
+<p id="msg"></p>
+</body>
+</html>
+
+框架 及 框架嵌套
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body bgcolor="aqua">
+FrameA
+<a href="http://fanyi.baidu.com/" target="_self">百度</a>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body bgcolor="#6495ed">
+FrameB
+<br/>
+<iframe src="framea.html"  width="400px" height="400px"></iframe>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body bgcolor="#8a2be2">
+FrameC
+<br/>
+<iframe src="frameb.html" width="600px" height="600px"></iframe>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>框架</title>
+</head>
+<!--cols列 rows行-->
+<!--
+<frameset cols="20%,50%,30%",>
+    <frame src="framea.html"></frame>
+    <frame src="frameb.html"></frame>
+    <frame src="framec.html"></frame>
+</frameset>
+-->
+
+<br/>
+<iframe src="framec.html" frameborder="0"  width="800px" height="800px">
+
+</iframe>
+</html>
+
+表格布局
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>tabel布局</title>
+</head>
+<body marginheight="0px" marginwidth="0px">
+<table width="100%" height="950x" style="background-color: darkgray">
+    <tr>
+        <td colspan="3" width="100%" height="10%" style="background-color: aqua">这是头部</td>
+    </tr>
+    <tr>
+        <td width="20%" height="80%" style="background-color: cornflowerblue">
+            <ul>
+                <li>苹果</li>
+                <li>菠萝</li>
+                <li>香蕉</li>
+            </ul>
+        </td>
+        <td width="60%" height="80%" style="background-color: #b55b4c">做菜的</td>
+        <td width="20%" height="80%" style="background-color: #b55b4c">做菜的</td>
+    </tr>
+    <tr>
+        <td colspan="3" width="100%" height="10%" style="background-color: #fffbea">这是底部</td>
+    </tr>
+</table>
+</body>
+</html>
+
+div布局
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>div布局</title>
+    <style type="text/css">
+        body{
+            margin: 0px;
+        }
+        div#container{
+            width: 100%;
+            height: 950px;
+            background-color: darkgrey;
+        }
+        div#heading{
+            width: 100%;
+            height: 10%;
+            background-color: aqua;
+        }
+        div#content_menu{
+            width: 30%;
+            height: 80%;
+            background-color: aquamarine;
+            float: left;
+        }
+        div#content_body{
+            width: 70%;
+            height: 80%;
+            background-color: blueviolet;
+            float: left;
+        }
+        div#footing{
+            width: 100%;
+            height: 10%;
+            background-color: black;
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+    <div id="heading">头部</div>
+    <div id="content_menu">内容菜单</div>
+    <div id="content_body">内容主体</div>
+    <div id="footing">底部</div>
+</div>
+</body>
+</html>
+
+表单
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>表单</title>
+</head>
+<body>
+<form>
+    用户名：
+    <input type="text">
+    密码：
+    <input type="password">
+    <br/>
+    你喜欢的水果有？
+    <br/>
+    苹果<input type="checkbox">
+    香蕉<input type="checkbox">
+    西红柿<input type="checkbox">
+    <br/>
+    你的性别：
+    男<input type="radio" name="sex">
+    女<input type="radio" name="sex">
+    <br/>
+    请选择您常用的网站：
+    <select>
+        <option>www.baidu.com</option>
+        <option>www.qq.com</option>
+        <option>www.360.com</option>
+    </select>
+    <br/>
+    <input type="button" value="按钮">
+    <input type="submit" value="确认"> <!-- submit 提交->
+    </form>
+    <!-- cols rows 行与列-->
+    <textarea cols="30" rows="30">请再次填写个人信息</textarea>
+
+
+    <img src="biaodan.png">
+</body>
+</html>
+
+有序 无序 自定义列表
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+<ul>
+    <li>苹果</li>
+    <li>菠萝</li>
+    <li>香蕉</li>
+</ul>
+<ol>
+    <li>苹果</li>
+    <li>菠萝</li>
+    <li>香蕉</li>
+</ol>
+<br/>
+
+<ul type="circle"> circle  disc square
+    <li>苹果</li>
+    <li>菠萝</li>
+    <li>香蕉</li>
+</ul>
+
+<ol type="A" ,start="10">  A a I i
+    <li>苹果</li>
+    <li>菠萝</li>
+    <li>香蕉</li>
+</ol>
+
+<ul>
+    <li>苹果</li>
+    <ul>
+        <li>苹果1</li>
+        <li>苹果2</li>
+        <li>苹果3</li>
+    </ul>
+    <li>菠萝</li>
+    <ul>
+        <li>菠萝1</li>
+        <li>菠萝2</li>
+        <li>菠萝3</li>
+    </ul>
+</ul>
+
+<ol>
+    <li>苹果</li>
+    <ul>
+        <li>苹果1</li>
+        <li>苹果2</li>
+        <li>苹果3</li>
+    </ul>
+    <li>菠萝</li>
+    <ul>
+        <li>菠萝1</li>
+        <li>菠萝2</li>
+        <li>菠萝3</li>
+    </ul>
+</ol>
+
+<dl>
+    <dt>helloworld</dt>
+    <dd>11111111111</dd>
+    <dd>222222222222</dd>
+    <dt>helloworld</dt>
+    <dd>11111111111</dd>
+    <dd>222222222222</dd>
+    <dt>helloworld</dt>
+    <dd>11111111111</dd>
+    <dd>222222222222</dd>
+</dl>
+</body>
+</html>
+
+属性选择器
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        [title]{
+            color:red;
+        }
+        [title=te]{
+            color:blueviolet;
+        }
+        [title~=te]  /*不需要完全相等 只要有 te 就可以*/
+            color:blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <p title="t">属性选择器</p>
+    <p title="te">属性和值选择器</p>
+
+    <p> this is my style </p>
+</body>
+</html>
+
+新特性
+header footer
+article <!--在内容中  拥有完整 头 身子 尾巴 的内容适合用 article-->  独立性
+section <!--段落 拥有标题 和 内容  或者当主体用-->  给页面分区 给内容分段  关联性
+aside 侧边栏
+nav 导航条
+
+后代选择器  ul>li*5  nav>ul>li*5  tab键
+兄弟选择器  div+h3+p*3
+缩写选择器  (div>dl>(dt+dd)*3)+footer>p
+自增符号    ul>li.item$*5
+#header = <div id="header"></div>
+p.class1.class2.class3 = <p class="class1 class2 class3"></p>
+ul>.class = <ul>
+    <li class="class"></li>
+</ul>
+--------------------------- js -------------------------
+localStorage    setItem("message",str) 设置key和value getItem("message"); 用key获得value  key(index) 用下标获得key clear()清除localStorage removeItem
+sessionStorage  setItem("message",str) getItem("message");
+document        getElementById
+        getElementById value innerHTML
+
+var date = new Date(); 创建时间对象 getTime()获得时间 setTime()设置时间
+var data = new Object; js里面一切对象都是从Object继承来的
+JSON.stringify(data) 用于从一个对象解析出字符串
+JSON.parse(str) 用于从一个字符串中解析出json对象
+alert("数据已经删除");弹窗提示
