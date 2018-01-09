@@ -1,3 +1,4 @@
+global
 import time
 time.sleep(0.5) #延迟0.5秒
 
@@ -7,6 +8,10 @@ random.randint(1,10)
 import sys
 sys.argv #执行脚本传入参数
 “a”in [a,b,c] #true 包含 not in
+
+import threading
+th = threading.Thread(target=func,args[参数1，参数2])
+th.start()
 
 while int print input 都是BIF（内置函数）
 dir(__builtins__) #查看内置函数
