@@ -21,6 +21,8 @@ str = """  """  #打印段落
 
 small = x if x < y else y #三元操作
 
+if elif else
+
 assert 3 > 4 #断言 抛出异常
 
 for i in "word":
