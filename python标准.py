@@ -32,12 +32,13 @@ for i in range(1,10,2):
 
 print("攻击力：%d, 防御力：%d," %(200,180)) #字符串格式化
 
-string.strip(str)#默认去空格
 dir(object)#查看对象能操作的所有方法
 for i in range(list.count("返回表中该值的数量")):
     list.remove("该值")
 
-  
+string
+"".strip(str)#默认去空格 参数为想删的文字
+"”.startswith('http')#判断字符串头部是不是参数 
 
 
 
