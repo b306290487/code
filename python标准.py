@@ -1,6 +1,7 @@
 global
 import time
 time.sleep(0.5) #延迟0.5秒
+time.time() #当前时间
 
 import random   
 random.randint(1,10)
