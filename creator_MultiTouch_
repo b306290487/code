@@ -1,0 +1,160 @@
+cc.Class({
+    extends: cc.Component,
+
+    properties: {
+        // foo: {
+        //    default: null,      // The default value will be used only when the component attaching
+        //                           to a node for the first time
+        //    url: cc.Texture2D,  // optional, default is typeof default
+        //    serializable: true, // optional, default is true
+        //    visible: true,      // optional, default is true
+        //    displayName: 'Foo', // optional
+        //    readonly: false,    // optional, default is false
+        // },
+        // ...
+        bg:cc.Node,
+    },
+
+    // use this for initialization
+    onLoad: function () 
+    {
+       this.bg.on('touchstart',this.onTouchStart,this);
+       this.bg.on('touchmove',this.onTouchMoved,this);
+       this.bg.on('touchend',this.onTouchEnd,this);
+
+       var vsize = cc.winSize;
+       var minX = vsize.width  / this.bg.getContentSize().width;
+       var minY = vsize.height / this.bg.getContentSize().height;
+       
+       this.curScale = 1;
+       this.minScale = Math.max(minX,minY);
+       this.maxScale = 2;  
+       
+       cc.log(this.minScale)
+       this.setBgScale(1);
+    },
+    setBgScale:function(scale)
+    {
+        var curScale = Math.min(Math.max(scale,this.minScale),this.maxScale);
+        this.curScale = curScale;
+        this.bg.setScale(curScale);
+        this.bg.setPosition(this.getEndPos(cc.p(this.bg.getPosition())));
+    },
+
+    //获得最终位置
+    getEndPos:function(pos)
+    { 
+       var scale = this.bg.getScale();
+       var vsize = cc.winSize;
+
+       var curWidth = this.bg.getContentSize().width * scale;  
+       var curheight = this.bg.getContentSize().height * scale;
+       cc.log(vsize.width,vsize.height,curWidth,curheight,scale);
+
+       if(pos.x > curWidth/2 - vsize.width/2)
+       {
+           pos.x = curWidth/2 - vsize.width/2;
+       }
+
+       if(pos.x < vsize.width/2 - curWidth/2)
+       {
+          pos.x = vsize.width/2 - curWidth/2;
+       }
+
+       if(pos.y > curheight/2 - vsize.height/2)
+       {
+           pos.y = curheight/2 - vsize.height/2;
+       }
+       if(pos.y <  vsize.height/2 - curheight/2)
+       {
+           pos.y = vsize.height/2 - curheight/2;
+       }
+      
+       cc.log(pos);
+       return pos;
+    }, 
+    onTouchStart:function(event)
+    {  
+        var touches = event.getTouches();
+    },
+    onTouchMoved:function(event)
+    {
+       //cc.log(event.getID());
+       var touches = event.getTouches();
+       if(touches.length == 1)
+       {   
+          // cc.log(this.bg);
+           var x = this.bg.x;
+           var y = this.bg.y;
+           var delta =  touches[0].getDelta();
+           var pos = cc.p( x + delta.x,y +  delta.y)
+           pos = this.getEndPos(pos);
+           this.bg.setPosition(pos); 
+           
+       }
+       else if(touches.length >= 2)
+       {    
+            var parent = this.node.parent;
+            var touch1 = touches[0], touch2 = touches[1];
+            
+            var curpos1 = touch1.getLocation();
+            var curpos2 = touch2.getLocation();
+            var prepos1 = touch1.getPreviousLocation();
+            var prepos2 = touch2.getPreviousLocation();
+
+            var preScale = this.curScale;
+            var curScale = preScale * cc.pDistance(curpos1,curpos2) / cc.pDistance(prepos1,prepos2);
+            if( Math.abs(curScale - preScale) > 0.01)
+            {
+                this.setBgScale(curScale);
+
+                //修正距离
+                var curPosLayer = cc.pMidpoint(curpos1,curpos2);
+                var prePosLayer = cc.pMidpoint(prepos1,prepos2);
+                if(this.curScale != preScale)
+                {
+                    var realCurPosLayer = this.bg.convertToNodeSpaceAR(curPosLayer);
+                    var deltaX = realCurPosLayer.x * (curScale - preScale);
+                    var deltaY = realCurPosLayer.y * (curScale - preScale);
+                    var pos = cc.p(this.bg.x - deltaX,this.bg.y -deltaY);
+                    pos = this.getEndPos(pos);
+                    this.bg.setPosition(pos); 
+                }
+                if(prePosLayer.x != curPosLayer.x || prePosLayer.y != curPosLayer.y)
+                {
+                    var pos = cc.p(this.bg.x + curPosLayer.x - prePosLayer.x,this.bg.y + curPosLayer.y - prePosLayer.y);
+                    pos = this.getEndPos(pos);
+                    this.bg.setPosition(pos); 
+                }
+
+            }
+         
+
+            // var delta1 = touch1.getDelta(), delta2 = touch2.getDelta();
+             
+
+
+            // var touchPoint1 = parent.convertToNodeSpaceAR(touch1.getLocation());
+            // var touchPoint2 = parent.convertToNodeSpaceAR(touch2.getLocation());
+            // var distance = cc.pSub(touchPoint1, touchPoint2);
+            // var delta = cc.pSub(delta1, delta2);
+            // var scale = 1;
+            // if (Math.abs(distance.x) > Math.abs(distance.y)) {
+            //     scale = (distance.x + delta.x) / distance.x * this.curScale;
+            // }
+            // else {
+            //     scale = (distance.y + delta.y) / distance.y * this.curScale;
+            // }
+            // this.setBgScale(scale);
+       }
+    },
+    onTouchEnd:function(event)
+    {
+       //cc.log(event.getID());
+    },
+
+    // called every frame, uncomment this function to activate update callback
+    // update: function (dt) {
+
+    // },
+});
