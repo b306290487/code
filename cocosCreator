@@ -1,4 +1,5 @@
 //------------------->>>常用API
+throw new Error('数值太小了！');
 cc.director.getScene()
 cc.director.runScene() //运行指定场景。
 cc.director.loadScene() //通过场景名称进行加载场景。
