@@ -1,3 +1,6 @@
+if not isinstance(x, (int, float)): #检查x 是不是int, float 是返回true 
+    raise TypeError('bad operand type')
+
 global
 import time
 time.sleep(0.5) #延迟0.5秒
