@@ -1,0 +1,17 @@
+//安卓真机调试 坑贼多
+cmd  确保 adb 环境已经配置
+安卓设备（手机） 确保 驱动安卓了 并且打开 开发者调试模式
+
+1、错误提示：Error: Activity class {} does not exist解决方法
+
+今天用android studio将项目运行到手机时候，突然报错：Error: Activity class {} does not exist，Error while Launching activity，
+我特地去AndroidManifest.xml文件中找对应的activity，确实是存在的呀，配置也没有问题，搜索了半天，才找到原因所在，原来是因为android studio
+的instant run的问题，网上解决方案有很多，这里记录一下，我认为最简单的解决方法。
+
+在控制台输入：adb uninstall 你的应用包名（“com.lwfygame.xxcycj”）
+
+提示success表示成功，重新运行run既可安装应用。 
+
+注意： 如果adb上链接了多个外部设备，需要在命令里增加指定设备 命令为 adb -s (设备名) uninstall 你的应用包名（“com.lwfygame.xxcycj”）
+adb devices 查看当前链接设备的所有设备
+adb kill-server 杀死adb服务 作用待测试
