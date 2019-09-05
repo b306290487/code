@@ -19,3 +19,7 @@ adb kill-server 杀死adb服务 作用待测试
 
 、、、、、、、、、、、、、、终端功能命令、、、、、、、、、、、、、、、、、
 gradlew assembleRelease    打包releces
+gradlew clean 清除9GAG/app目录下的build文件夹
+gradlew build 检查依赖并编译打包    这里注意的是 ./gradlew build 命令把debug、release环境的包都打出来
+gradlew assembleDebug 或者 ./gradlew aD, 编译并打 Debug 包
+gradlew assembleRelease 或者 ./gradlew aR, 编译并打 Release 包
