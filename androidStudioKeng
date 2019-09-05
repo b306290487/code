@@ -18,7 +18,7 @@ adb -s cb6b8ec9 uninstall com.lwfygame.xxcycj
 adb devices 查看当前链接设备的所有设备
 adb kill-server 杀死adb服务 作用待测试
 
-2、坑爹重复调用open_ad_sdk
+2、坑爹-重复调用open_ad_sdk
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar','*.aar']) / /重复调用open_ad_sdk  会导致致命错误
     implementation fileTree(dir: "C:/CocosCreator_2.1.2/resources/cocos2d-x/cocos/platform/android/java/libs", include: ['*.jar'])
@@ -26,6 +26,18 @@ dependencies {
     compile(name: 'open_ad_sdk', ext: 'aar')   //重复调用open_ad_sdk  会导致致命错误
 }
 
+3、巨坑无比-之Release警告导致打包中断
+有效信息：[
+Warning: there were 69 unresolved references to classes or interfaces.
+         You may need to add missing library jars or update their versions.
+         If your code works fine without the missing classes, you can suppress
+         the warnings with '-dontwarn' options.       ]
+在终端打包出错可以在次打包在后面加入 --stacktrace -info 命令，来加强错误信息显示。
+警告终止了 打包工作，需在proguard-rules.pro这个文件加一行 -ignorewarnings 来忽视警告
+
+————————————————
+版权声明：本文为CSDN博主「FDoubleman」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/fdoubleman/article/details/75066878
 
 、、、、、、、、、、、、、、终端功能命令、、、、、、、、、、、、、、、、、
 gradlew assembleRelease    打包releces
@@ -37,4 +49,3 @@ gradlew assembleRelease 或者 ./gradlew aR, 编译并打 Release 包
 
 gradlew compileReleaseSources --stacktrace -info   //编译Release工程  会有报错详情
 gradlew compileDebugSources --stacktrace -info   //编译Debug工程  会有报错详情
-
