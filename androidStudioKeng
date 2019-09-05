@@ -23,3 +23,8 @@ gradlew clean 清除9GAG/app目录下的build文件夹
 gradlew build 检查依赖并编译打包    这里注意的是 ./gradlew build 命令把debug、release环境的包都打出来
 gradlew assembleDebug 或者 ./gradlew aD, 编译并打 Debug 包
 gradlew assembleRelease 或者 ./gradlew aR, 编译并打 Release 包
+
+
+gradlew compileReleaseSources --stacktrace -info   //编译Release工程  会有报错详情
+gradlew compileDebugSources --stacktrace -info   //编译Debug工程  会有报错详情
+
