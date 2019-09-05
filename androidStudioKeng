@@ -9,12 +9,22 @@ cmd  确保 adb 环境已经配置
 的instant run的问题，网上解决方案有很多，这里记录一下，我认为最简单的解决方法。
 
 在控制台输入：adb uninstall 你的应用包名（“com.lwfygame.xxcycj”）
+adb uninstall com.lwfygame.xxcycj
+adb -s cb6b8ec9 uninstall com.lwfygame.xxcycj
 
 提示success表示成功，重新运行run既可安装应用。 
 
 注意： 如果adb上链接了多个外部设备，需要在命令里增加指定设备 命令为 adb -s (设备名) uninstall 你的应用包名（“com.lwfygame.xxcycj”）
 adb devices 查看当前链接设备的所有设备
 adb kill-server 杀死adb服务 作用待测试
+
+2、坑爹重复调用open_ad_sdk
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar']) / /重复调用open_ad_sdk  会导致致命错误
+    implementation fileTree(dir: "C:/CocosCreator_2.1.2/resources/cocos2d-x/cocos/platform/android/java/libs", include: ['*.jar'])
+    implementation project(':libcocos2dx')
+    compile(name: 'open_ad_sdk', ext: 'aar')   //重复调用open_ad_sdk  会导致致命错误
+}
 
 
 、、、、、、、、、、、、、、终端功能命令、、、、、、、、、、、、、、、、、
