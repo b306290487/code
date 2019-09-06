@@ -35,7 +35,7 @@ Warning: there were 69 unresolved references to classes or interfaces.
 在终端打包出错可以在次打包在后面加入 --stacktrace -info 命令，来加强错误信息显示。
 警告终止了 打包工作，需在proguard-rules.pro这个文件加一行 -ignorewarnings 来忽视警告
 
-3、SDK之代码混淆
+4、SDK之代码混淆
 creator工程默认开启代码混淆 可能导致一些sdk异常，程序闪退
 build.gradle里
  buildTypes {
