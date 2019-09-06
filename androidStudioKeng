@@ -18,12 +18,12 @@ adb -s cb6b8ec9 uninstall com.lwfygame.xxcycj
 adb devices 查看当前链接设备的所有设备
 adb kill-server 杀死adb服务 作用待测试
 
-2、坑爹-重复调用open_ad_sdk
+2、坑爹-重复导入open_ad_sdk
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar']) / /重复调用open_ad_sdk  会导致致命错误
+    implementation fileTree(dir: 'libs', include: ['*.jar','*.aar']) / /重复导入oopen_ad_sdk  会导致致命错误
     implementation fileTree(dir: "C:/CocosCreator_2.1.2/resources/cocos2d-x/cocos/platform/android/java/libs", include: ['*.jar'])
     implementation project(':libcocos2dx')
-    compile(name: 'open_ad_sdk', ext: 'aar')   //重复调用open_ad_sdk  会导致致命错误
+    compile(name: 'open_ad_sdk', ext: 'aar')   //重复导入oopen_ad_sdk  会导致致命错误
 }
 
 3、巨坑无比-之Release警告导致打包中断
@@ -35,9 +35,19 @@ Warning: there were 69 unresolved references to classes or interfaces.
 在终端打包出错可以在次打包在后面加入 --stacktrace -info 命令，来加强错误信息显示。
 警告终止了 打包工作，需在proguard-rules.pro这个文件加一行 -ignorewarnings 来忽视警告
 
-————————————————
-版权声明：本文为CSDN博主「FDoubleman」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
-原文链接：https://blog.csdn.net/fdoubleman/article/details/75066878
+3、SDK之代码混淆
+creator工程默认开启代码混淆 可能导致一些sdk异常，程序闪退
+build.gradle里
+ buildTypes {
+    release {
+        minifyEnabled true      //这个是用来开启删除无用代码，比如没有引用到的代码
+        shrinkResources true    //用来开启删除无用资源，也就是没有被引用的文件
+        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+    }
+}
+
+
+
 
 、、、、、、、、、、、、、、终端功能命令、、、、、、、、、、、、、、、、、
 gradlew assembleRelease    打包releces
