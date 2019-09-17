@@ -60,3 +60,5 @@ gradlew assembleRelease 或者 ./gradlew aR, 编译并打 Release 包
 
 gradlew compileReleaseSources --stacktrace -info   //编译Release工程  会有报错详情
 gradlew compileDebugSources --stacktrace -info   //编译Debug工程  会有报错详情
+
+adb connect localhost:5555  蓝叠模拟器
