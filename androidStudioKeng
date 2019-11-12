@@ -56,7 +56,13 @@ build.gradle里
 在未获得这个权限时，就进行了初始化，这时SDK采集不到imei等设备信息，造成激活匹配失败。请确认初始化sdk的过程是否已经拿到
 了READ_PHONE_STATE权限。
 
-
+6、安卓打开app直接挂，还没进oncreate
+armeabi中so文件兼容问题  异常java.lang.UnsatisfiedLinkError: dalvik.system.PathClassLoader[DexPathList
+解决方法 ： 在build.gradle中android下添加指定依赖包
+   ndk{
+            abiFilters "armeabi-v7a"
+        }
+帮助链接 ： https://blog.csdn.net/nicolelili1/article/details/77451838
 
 
 、、、、、、、、、、、、、、终端功能命令、、、、、、、、、、、、、、、、、
