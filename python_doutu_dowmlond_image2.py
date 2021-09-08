@@ -13,12 +13,13 @@ PAGE_URL_LIST = []
 FACE_URL_LIST = []
 #全局锁
 
-page = 2
+page = 10
 pagenum = 40
 gLock = threading.Lock()
 aLock = threading.Lock()
 count = 0
 znum = (page-1)*pagenum
+savapath = 'D:\images'
 
 def procuder():
     while True:
@@ -40,13 +41,13 @@ def procuder():
 #             content = res.content
             soup = BeautifulSoup(res,'html.parser')
             img_list = soup.find_all('img',attrs={'class':'lazy image_dtb img-responsive'})
-            print(soup,'该网页找不到 标题 .main-title',img_list)
+#             print(soup,'该网页找不到 标题 .main-title',img_list)
             gLock.acquire()
             for img in img_list:
-                url = img['data-original']
+                url = img['data-backup']
                 FACE_URL_LIST.append(url)
             gLock.release()
-
+   
 def customer():
     global count
     while True:
@@ -64,25 +65,27 @@ def customer():
             face_url = FACE_URL_LIST.pop()
             aLock.release()
             filename = face_url.split('/').pop()
-            path = os.path.join('D:\images',filename)
+            path = os.path.join(savapath,filename)
             request.urlretrieve(face_url,filename= path)
-
+            
 def startThread():
     #创建两个多线程来作为生产者，去爬取表情的url
-    for x in range(3):
-        
+    for x in range(10):
         th = threading.Thread(target = procuder)
         th.start()
 
 
 #     创建4个线程作为消费者，去吧表情图片url下载下来
-    for x in range(1):
+    for x in range(10):
         th = threading.Thread(target = customer)
         th.start()
-
+        
 for x in range(1,page):
     newurl = PAGE_URL + str(x)
-    
     PAGE_URL_LIST.append(newurl)
+
+
+if(not os.path.exists(savapath)):#目录不存在
+    os.mkdir(savapath) #创建目录
     
 startThread()
